@@ -13,6 +13,8 @@ declare(strict_types=1);
 namespace App\Model;
 
 use Carbon\Carbon;
+use Qbhy\HyperfAuth\AuthAbility;
+use Qbhy\HyperfAuth\Authenticatable;
 
 /**
  * 用户模型.
@@ -31,8 +33,10 @@ use Carbon\Carbon;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class User extends Model
+class User extends Model implements Authenticatable
 {
+    use AuthAbility;
+
     // 角色常量
     public const ROLE_USER = 'user';
 
@@ -57,6 +61,9 @@ class User extends Model
      * The attributes that are mass assignable.
      */
     protected array $fillable = [
+        'name',
+        'email',
+        'password',
         'avatar',
         'role',
         'status',

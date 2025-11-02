@@ -16,12 +16,13 @@ use App\Exception\BusinessException; // 自定义业务异常（见步骤3）
 use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\ExceptionHandler\Formatter\FormatterInterface;
+use Hyperf\HttpMessage\Exception\HttpException;
 use Hyperf\HttpMessage\Stream\SwooleStream;
 use Hyperf\Validation\ValidationException;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
-use function Hyperf\Support\env;
 
+use function Hyperf\Support\env;
 
 class GlobalExceptionHandler extends ExceptionHandler
 {
@@ -48,6 +49,9 @@ class GlobalExceptionHandler extends ExceptionHandler
             $data['code'] = 422; // 通常用422表示验证失败
             $data['message'] = '参数验证失败';
             $data['data'] = $throwable->validator->errors()->all(); // 具体错误信息
+
+            $this->stopPropagation();
+            return $response->withStatus(500)->withBody(new SwooleStream(json_encode($data)));
         } elseif ($this->isHttpException($throwable)) {
             // HTTP异常（如404、403等）
             $statusCode = $throwable->getStatusCode();
@@ -69,6 +73,7 @@ class GlobalExceptionHandler extends ExceptionHandler
 
         // 3. 构建响应
         $body = json_encode($data, JSON_UNESCAPED_UNICODE);
+        //        var_dump($throwable);
         return $response
             ->withHeader('Content-Type', 'application/json')
             ->withStatus($this->getStatusCode($throwable, $data['code'])) // 设置HTTP状态码
@@ -100,12 +105,11 @@ class GlobalExceptionHandler extends ExceptionHandler
         return $defaultCode;
     }
 
-
     /**
-     * 判断是否为HTTP异常
+     * 判断是否为HTTP异常.
      */
     private function isHttpException(Throwable $throwable): bool
     {
-        return $throwable instanceof \Hyperf\HttpMessage\Exception\HttpException;
+        return $throwable instanceof HttpException;
     }
 }

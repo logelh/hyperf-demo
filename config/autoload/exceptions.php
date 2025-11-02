@@ -9,10 +9,11 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-use App\Exception\Handler\AppExceptionHandler;
+use App\Exception\Handler\GlobalExceptionHandler;
 use Hyperf\HttpServer\Exception\Handler\HttpExceptionHandler;
+use Qbhy\HyperfAuth\AuthExceptionHandler;
 
-/**
+/*
  * This file is part of Hyperf.
  *
  * @see     https://www.hyperf.io
@@ -23,8 +24,12 @@ use Hyperf\HttpServer\Exception\Handler\HttpExceptionHandler;
 return [
     'handler' => [
         'http' => [
-            HttpExceptionHandler::class,
-            AppExceptionHandler::class,
+            GlobalExceptionHandler::class,
+            //            \Hyperf\Validation\ValidationExceptionHandler::class,
+            //            HttpExceptionHandler::class,
+            //
+            //          此步骤可选，开发者可以自行捕捉 捕获AuthException 和 JWTException异常
+            //                                    AuthExceptionHandler::class,
         ],
     ],
 ];

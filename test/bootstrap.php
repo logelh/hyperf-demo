@@ -14,7 +14,7 @@ use Hyperf\Di\ClassLoader;
 use Hyperf\Engine\DefaultOption;
 use Swoole\Runtime;
 
-/**
+/*
  * This file is part of Hyperf.
  *
  * @see     https://www.hyperf.io
