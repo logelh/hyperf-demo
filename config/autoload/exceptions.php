@@ -11,6 +11,7 @@ declare(strict_types=1);
  */
 use App\Exception\Handler\GlobalExceptionHandler;
 use Hyperf\HttpServer\Exception\Handler\HttpExceptionHandler;
+use Hyperf\Validation\ValidationExceptionHandler;
 use Qbhy\HyperfAuth\AuthExceptionHandler;
 
 /*
@@ -24,6 +25,7 @@ use Qbhy\HyperfAuth\AuthExceptionHandler;
 return [
     'handler' => [
         'http' => [
+            //            ValidationExceptionHandler::class,
             GlobalExceptionHandler::class,
             //            \Hyperf\Validation\ValidationExceptionHandler::class,
             //            HttpExceptionHandler::class,

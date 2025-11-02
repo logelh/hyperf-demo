@@ -32,7 +32,8 @@
         "hyperf/process": "~3.1.0",
         "hyperf/redis": "~3.1.0",
         "hyperf/session": "^3.1",
-        "hyperf/validation": "^3.1"
+        "hyperf/validation": "^3.1",
+        "phpmailer/phpmailer": "^6.11"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",

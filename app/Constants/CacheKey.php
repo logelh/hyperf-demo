@@ -9,16 +9,19 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-use App\Process\EmailNotifyProcess;
 
-/*
+namespace App\Constants;
+
+/**
  * This file is part of Hyperf.
  *
- * @link     https://www.hyperf.io
+ * @see     https://www.hyperf.io
  * @document https://hyperf.wiki
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-return [
-    EmailNotifyProcess::class,
-];
+interface CacheKey
+{
+    // 邮件stream常量
+    public const EMAIL_STREAM_KEY = 'email_notify_stream';
+}

@@ -18,6 +18,7 @@ use Hyperf\Contract\StdoutLoggerInterface;
 use Hyperf\ExceptionHandler\ExceptionHandler;
 use Hyperf\ExceptionHandler\Formatter\FormatterInterface;
 use Hyperf\HttpMessage\Stream\SwooleStream;
+use Hyperf\Validation\ValidationException;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
 
@@ -43,7 +44,13 @@ class GlobalExceptionHandler extends ExceptionHandler
         if ($throwable instanceof BusinessException) {
             $code = $throwable->getCode();
             $message = $throwable->getMessage();
+        } elseif ($throwable instanceof ValidationException) {
+            $code = 406;
+            $allError = $throwable->validator->errors()->all();
+            $message = empty($allError) ? '服务器内部错误' : $allError[0];
         } else {
+            var_dump($throwable->getCode());
+            var_dump($throwable->getMessage());
             // 系统异常默认 500 错误
             $code = 500;
             $message = '服务器内部错误'; // 生产环境建议隐藏具体错误信息

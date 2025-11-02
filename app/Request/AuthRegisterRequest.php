@@ -20,7 +20,7 @@ class AuthRegisterRequest extends FormRequest
     {
         return [
             'name' => 'required|regex:/^[\w\x{4e00}-\x{9fa5}]{2,20}$/u',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'password' => [
                 'required',
                 'string',
@@ -39,6 +39,7 @@ class AuthRegisterRequest extends FormRequest
             'email.required' => '邮箱不能为空',
             'email.email' => '邮箱格式不正确',
             'password.required' => '密码不能为空',
+            'email.unique' => '当前邮箱已被注册,请登录！',
             'password.min' => '密码至少8位',
             'password.regex' => '密码需包含字母和数字',
             'password.confirmed' => '两次密码输入不一致',
