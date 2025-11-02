@@ -19,15 +19,14 @@ class AuthRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required', // |regex:/^[\w\x{4e00}-\x{9fa5}]{2,20}$/u
-            'email' => 'required', // |email|unique:users,email
+            'name' => 'required|regex:/^[\w\x{4e00}-\x{9fa5}]{2,20}$/u',
+            'email' => 'required|email',
             'password' => [
                 'required',
-                //                'string',
-                //                'min:8',
-                //                'regex:/^(?=
-                // .*[a-zA-Z])(?=.*\d).+$/',
-                //                'confirmed', // 要求 password_confirmation 字段与 password 匹配
+                'string',
+                'min:8',
+                'regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/',
+                'confirmed', // 要求 password_confirmation 字段与 password 匹配
             ],
         ];
     }

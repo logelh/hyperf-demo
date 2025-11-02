@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Controller\V1;
 
+use App\Common\Result;
 use App\Controller\AbstractController;
 use App\Request\AuthRegisterRequest;
 use App\Service\AuthService;
@@ -44,14 +45,9 @@ class AuthController extends AbstractController
         $data['last_login_ip'] = IpUtil::getClientIp($request);
         $user = $this->authService->register($data);
 
-        return $this->response->json([
-            'code' => 200,
-            'message' => '注册成功',
-            'data' => [
-                'user' => $user,
-            ],
-            'timestamp' => time(),
-        ]);
+        return Result::success(['data' => [
+            'user' => $user,
+        ]]);
     }
 
     #[GetMapping(path: '/logout')]
