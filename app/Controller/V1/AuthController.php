@@ -16,6 +16,7 @@ use App\Common\Result;
 use App\Controller\AbstractController;
 use App\Request\AuthLoginRequest;
 use App\Request\AuthRegisterRequest;
+use App\Request\RefreshTokenRequest;
 use App\Service\AuthService;
 use App\Util\IpUtil;
 use Carbon\Carbon;
@@ -61,6 +62,15 @@ class AuthController extends AbstractController
         }
 
         return Result::success(['token' => $token]);
+    }
+
+    #[PostMapping(path: 'refresh')]
+    public function refreshToken(RefreshTokenRequest $request)
+    {
+        $data = $request->validated();
+        $newToken = $this->authService->refreshToken($data);
+
+        return Result::success(['new_token' => $newToken]);
     }
 
     #[GetMapping(path: '/logout')]

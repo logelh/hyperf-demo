@@ -122,13 +122,20 @@ class AuthService
         }
     }
 
+    public function refreshToken(array $data)
+    {
+        /** @var JwtGuard $jwt */
+        $jwt = $this->auth->guard('jwt');
+        return $jwt->refresh($data['refresh_token']);
+    }
+
     /**
      *  实现真实登录.
      * - 密码加密存储（bcrypt）
      * - 登录成功：返回JWT token，记录登录时间和IP
      * - 登录失败：明确提示邮箱或密码错误.
      */
-    public function loginIn(string $email, string $password): string
+    protected function loginIn(string $email, string $password): string
     {
         $user = $this->userRepository->existsByEmail($email);
 
