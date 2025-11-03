@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 /**
- * https://github.com/qbhy/hyperf-auth
  * This file is part of Hyperf.
  *
  * @link     https://www.hyperf.io

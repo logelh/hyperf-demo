@@ -49,7 +49,6 @@ class EmailService
             $this->logger->info('邮件发送成功!' . $to . ";{$subject};{$content}");
             return true;
         } catch (Exception $e) {
-            // TODO 失败邮件需要丢到一个死信队列重试
             $this->logger->error('邮件发送失败!' . $e->getMessage());
             return false;
         }

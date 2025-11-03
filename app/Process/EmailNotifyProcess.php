@@ -63,11 +63,14 @@ class EmailNotifyProcess extends AbstractProcess
 
                 if (! empty($messages[CacheKey::EMAIL_STREAM_KEY])) {
                     foreach ($messages[CacheKey::EMAIL_STREAM_KEY] as $messageId => $message) {
-                        $this->emailService->send(
+                        $sendStatus = $this->emailService->send(
                             $message['email'],
                             $message['subject'],
                             $message['content']
                         );
+
+                        // $sendStatus == false && 不能直接ACK
+                        // TODO 失败邮件需要丢到一个死信队列重试
 
                         $this->logger->info('邮件发送成功！消费消息！' . $messageId);
                         $this->redis->xAck(CacheKey::EMAIL_STREAM_KEY, $consumerGroup, [$messageId]);

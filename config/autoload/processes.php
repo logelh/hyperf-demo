@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+use App\Process\AsyncLoginLogQueueConsumer;
 use App\Process\EmailNotifyProcess;
 
 /*
@@ -20,5 +21,6 @@ use App\Process\EmailNotifyProcess;
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 return [
-    EmailNotifyProcess::class,
+    AsyncLoginLogQueueConsumer::class, // 异步执行登录日志记录
+    EmailNotifyProcess::class, // 异步执行邮件发送
 ];

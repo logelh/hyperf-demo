@@ -15,7 +15,8 @@ namespace App\Process;
 use Hyperf\AsyncQueue\Process\ConsumerProcess;
 use Hyperf\Process\Annotation\Process;
 
-#[Process]
-class AsyncQueueConsumer extends ConsumerProcess
+#[Process(name: 'async-loginlog-queue')]
+class AsyncLoginLogQueueConsumer extends ConsumerProcess
 {
+    protected string $queue = 'default';
 }
