@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 /**
+ * https://github.com/qbhy/hyperf-auth
  * This file is part of Hyperf.
  *
  * @link     https://www.hyperf.io
@@ -129,7 +130,7 @@ return [
              * 可选配置
              * jwt 生命周期，单位秒，默认一天
              */
-            'ttl' => (int) env('SIMPLE_JWT_TTL', 60 * 60 * 24),
+            'ttl' => (int) env('SIMPLE_JWT_TTL', 60 * 60 * 2),
 
             /*
              * 可选配置

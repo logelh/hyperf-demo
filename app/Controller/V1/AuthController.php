@@ -14,6 +14,7 @@ namespace App\Controller\V1;
 
 use App\Common\Result;
 use App\Controller\AbstractController;
+use App\Request\AuthLoginRequest;
 use App\Request\AuthRegisterRequest;
 use App\Service\AuthService;
 use App\Util\IpUtil;
@@ -45,9 +46,21 @@ class AuthController extends AbstractController
         $data['last_login_ip'] = IpUtil::getClientIp($request);
         $user = $this->authService->register($data);
 
-        return Result::success(['data' => [
+        return Result::success([
             'user' => $user,
-        ]]);
+        ]);
+    }
+
+    #[PostMapping(path: 'login')]
+    public function login(AuthLoginRequest $request)
+    {
+        $data = $request->validated();
+        $token = $this->authService->login($data['email'], $data['password']);
+        if (! $token) {
+            return Result::error('用户登录失败', 406);
+        }
+
+        return Result::success(['token' => $token]);
     }
 
     #[GetMapping(path: '/logout')]
