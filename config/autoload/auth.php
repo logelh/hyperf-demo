@@ -15,6 +15,7 @@ use Hyperf\Redis\Redis;
 use Qbhy\HyperfAuth\Guard\JwtGuard;
 use Qbhy\HyperfAuth\Guard\SessionGuard;
 use Qbhy\HyperfAuth\Guard\SsoGuard;
+use Qbhy\HyperfAuth\HyperfRedisCache;
 use Qbhy\HyperfAuth\Provider\EloquentProvider;
 use Qbhy\SimpleJwt\Encoders;
 use Qbhy\SimpleJwt\EncryptAdapters as Encrypter;
@@ -96,11 +97,11 @@ return [
              * 可选配置
              * 缓存类
              */
-            'cache' => new FilesystemCache(sys_get_temp_dir()),
+            // 'cache' => new FilesystemCache(sys_get_temp_dir()),
             // 如果需要分布式部署，请选择 redis 或者其他支持分布式的缓存驱动
-            //            'cache' => function () {
-            //                return make(\Qbhy\HyperfAuth\HyperfRedisCache::class);
-            //            },
+            'cache' => function () {
+                return make(HyperfRedisCache::class);
+            },
 
             /*
              * 可选配置
@@ -165,11 +166,11 @@ return [
              * 可选配置
              * 缓存类
              */
-            'cache' => new FilesystemCache(sys_get_temp_dir()),
+            //            'cache' => new FilesystemCache(sys_get_temp_dir()),
             // 如果需要分布式部署，请选择 redis 或者其他支持分布式的缓存驱动
-            //            'cache' => function () {
-            //                return make(\Qbhy\HyperfAuth\HyperfRedisCache::class);
-            //            },
+            'cache' => function () {
+                return make(HyperfRedisCache::class);
+            },
 
             /*
              * 可选配置
