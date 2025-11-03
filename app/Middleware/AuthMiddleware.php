@@ -35,7 +35,8 @@ class AuthMiddleware implements MiddlewareInterface
             '/api/v1/auth/register',
         ];
         $uri = $request->getUri()->getPath();
-        if (! in_array($uri, $unCheck)) {
+        // 必须是api/v1 下面的路径才走验权
+        if (str_starts_with($uri, '/api/v1') && ! in_array($uri, $unCheck)) {
             $request = $this->checkToken($request);
         }
 

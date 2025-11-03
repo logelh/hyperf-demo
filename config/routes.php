@@ -9,10 +9,15 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+use App\Controller\V1\UserController;
 use Hyperf\HttpServer\Router\Router;
 
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
 
 Router::get('/favicon.ico', function () {
     return '';
+});
+
+Router::addGroup('/api/v1', function () {
+    Router::get('/user_profile', [UserController::class, 'profile']);
 });
