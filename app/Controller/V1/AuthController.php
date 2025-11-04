@@ -65,6 +65,7 @@ class AuthController extends AbstractController
     }
 
     #[PostMapping(path: 'refresh')]
+    #[Middleware(AuthMiddleware::class)]
     public function refreshToken(RefreshTokenRequest $request)
     {
         $data = $request->validated();

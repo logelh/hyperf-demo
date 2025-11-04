@@ -21,7 +21,6 @@ use Hyperf\Di\Annotation\Inject;
 
 class UserController extends AbstractController
 {
-
     #[Inject]
     protected UserService $userService;
 

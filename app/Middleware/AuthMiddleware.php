@@ -30,14 +30,9 @@ class AuthMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         // 无需验证token的接口
-        $unCheck = [
-            '/api/v1/auth/login',
-            '/api/v1/auth/register',
-            '/api/v1/auth/refresh',
-        ];
         $uri = $request->getUri()->getPath();
         // 必须是api/v1 下面的路径才走验权
-        if (str_starts_with($uri, '/api/v1') && ! in_array($uri, $unCheck)) {
+        if (str_starts_with($uri, '/api/v1')) {
             $request = $this->checkToken($request);
         }
 

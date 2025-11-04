@@ -10,6 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 use App\Controller\V1\UserController;
+use App\Middleware\AuthMiddleware;
 use Hyperf\HttpServer\Router\Router;
 
 Router::addRoute(['GET', 'POST', 'HEAD'], '/', 'App\Controller\IndexController@index');
@@ -21,4 +22,4 @@ Router::get('/favicon.ico', function () {
 Router::addGroup('/api/v1', function () {
     Router::get('/user_profile', [UserController::class, 'profile']);
     Router::post('/user_profile_update', [UserController::class, 'profileUpdate']);
-});
+}, ['middleware' => [AuthMiddleware::class]]);
