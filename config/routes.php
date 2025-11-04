@@ -20,4 +20,5 @@ Router::get('/favicon.ico', function () {
 
 Router::addGroup('/api/v1', function () {
     Router::get('/user_profile', [UserController::class, 'profile']);
+    Router::post('/user_profile_update', [UserController::class, 'profileUpdate']);
 });

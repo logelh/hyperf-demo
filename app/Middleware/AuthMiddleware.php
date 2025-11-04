@@ -33,6 +33,7 @@ class AuthMiddleware implements MiddlewareInterface
         $unCheck = [
             '/api/v1/auth/login',
             '/api/v1/auth/register',
+            '/api/v1/auth/refresh',
         ];
         $uri = $request->getUri()->getPath();
         // 必须是api/v1 下面的路径才走验权

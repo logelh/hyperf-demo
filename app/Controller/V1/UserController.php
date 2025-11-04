@@ -15,14 +15,15 @@ namespace App\Controller\V1;
 use App\Common\Result;
 use App\Controller\AbstractController;
 use App\Model\User;
+use App\Request\UserProfileRequest;
 use App\Service\UserService;
+use Hyperf\Di\Annotation\Inject;
 
 class UserController extends AbstractController
 {
-    public function __construct(protected UserService $userService)
-    {
-        parent::__construct();
-    }
+
+    #[Inject]
+    protected UserService $userService;
 
     public function profile()
     {
@@ -31,4 +32,15 @@ class UserController extends AbstractController
         return Result::success($this->userService->profile($userInfo->id));
     }
 
+    public function profileUpdate(UserProfileRequest $request)
+    {
+        /** @var User $userInfo */
+        $userInfo = $this->request->getAttribute('user');
+        $validated = $request->validated();
+        $validated['user_id'] = $userInfo->id;
+
+        $this->userService->updateProfile($validated);
+
+        return Result::success();
+    }
 }

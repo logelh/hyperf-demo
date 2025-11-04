@@ -22,6 +22,13 @@ class UserService
 
     public function profile($uid)
     {
-        return $this->userProfileRepository->getById($uid);
+        return $this->userProfileRepository->getByUid($uid);
+    }
+
+    public function updateProfile(array $profileData)
+    {
+        $this->userProfileRepository->updateByUid($profileData);
+
+        $this->userProfileRepository->deleteCacheByUid($profileData['user_id']);
     }
 }
